@@ -7,10 +7,36 @@ import math
 import copy
 from pdf_paths import get_paths
 import time
+import shutil
+
 
 #Example data {'amount': [[Amount_of_stock, dolar_price, stock_price, date]], 'revenue': 0}
 
 pandas.options.mode.chained_assignment = None
+
+def get_ticker_df(ticker, date):
+    path = f"source/cache/ticker_datas/{ticker.upper()}.csv"
+
+    if os.path.isfile(path):
+        _df = pandas.read_csv(path,  header=[0, 1], index_col=0)
+        _df.columns = _df.columns.droplevel(1)
+
+        return _df
+
+    else:
+        _df = yf.download(ticker.upper(), start=date, actions=True, progress=False)
+        time.sleep(1)
+        _df.to_csv(path)
+
+        _df = pandas.read_csv(path,  header=[0, 1], index_col=0)
+        _df.columns = _df.columns.droplevel(1)
+
+
+
+
+
+        return _df
+
 
 def get_d_price(text, usd_df):
     b_price = float(usd_df.loc[text == usd_df['Tarih']]['TP_DK_USD_A_YTL'])
@@ -97,17 +123,18 @@ def month_data(df, cache_data, usd_df, yi_ufe_df, startdate, debug_ticker):
                     c_month = int(startdate[3:5])
                     c_year = int(startdate[6:])
                     _date = f"{c_year}-{c_month:02d}-{c_day:02d}"
-                    _df = yf.download(row['Ticker'].upper(), start=_date, actions=True, progress=False)
-                    time.sleep(1)
-                    _df.columns = _df.columns.droplevel('Ticker')
+                    #_df = yf.download(row['Ticker'].upper(), start=_date, actions=True, progress=False)
+                    _df = get_ticker_df(row['Ticker'], date=_date)
+                    #print(_df)
+
                     
-                    print(_df)
                     splits = _df[_df["Stock Splits"]>0].drop(columns=['Open', 'High','Low','Close', 'Volume', 'Dividends'])
 
                     cache_master = []
                     for i in range(len(splits)):
                         _split = float(splits.iloc[i]['Stock Splits'])
-                        cache_date = str(splits.index[i].date())
+
+                        cache_date = str(splits.index[i])
                         c_year = int(cache_date[:4])
                         c_month = int(cache_date[5:7])
                         c_day = int(cache_date[8:])
@@ -206,6 +233,13 @@ def month_data(df, cache_data, usd_df, yi_ufe_df, startdate, debug_ticker):
     return cache_data
 
 def renew_all(ticker="_none"):
+    if os.path.isdir("source/cache/ticker_datas"):
+        shutil.rmtree("source/cache/ticker_datas")
+    
+    os.mkdir("source/cache/ticker_datas")
+
+
+
     split_path = "source/cache/splits.json"
 
     if not os.path.isdir("source/cache"):
@@ -273,16 +307,20 @@ def renew_all(ticker="_none"):
     #gettin current values:
     last_data = main_data[end_year]['months'][-1]
 
-    print("Active orders:")
+    #print("Active orders:")
     for t in last_data.keys():
-        today = f"{date.today().day:02}-{date.today().month:02}-{date.today().year}"
-        b_price = get_d_price(today, usd_df)
+        day_1 = f"{1:02}-{date.today().month:02}-{date.today().year}"
+        b_price = get_d_price(day_1, usd_df)
         c_val = 0.0
 
         if len(last_data[t]['amount']) > 0:  #actually active?
-            ticker = yf.Ticker(t)  # Replace with any ticker symbol
-            time.sleep(1)
-            current_price = ticker.fast_info["lastPrice"]
+            _df = get_ticker_df(t, day_1)
+            _date = f"{date.today().year}-{date.today().month:02}-{1:02}"
+
+            row = _df.loc[_date]
+
+            current_price = row['Close']
+
     
         else: 
             current_price = 0
@@ -291,9 +329,9 @@ def renew_all(ticker="_none"):
             c_val += o[0] * b_price * current_price
         last_data[t]['current_value'] = c_val
 
-        last_data[t]['total_value'] = calculate_total_spending_value(last_data[t], today, yi_ufe_df, usd_df, isSold=False)
+        last_data[t]['total_value'] = calculate_total_spending_value(last_data[t], day_1, yi_ufe_df, usd_df, isSold=False)
 
-        print(f"\t{t}: {c_val}, {last_data[t]['total_value']}")
+        #print(f"\t{t}: {c_val}, {last_data[t]['total_value']}")
 
 
 

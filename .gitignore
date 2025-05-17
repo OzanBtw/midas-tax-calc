@@ -4,6 +4,7 @@ source/tax_settings.json
 source/usd_data.csv
 source/year_data.json
 source/yi_ufe.csv
+source/cache/ticker_datas
 
 note.txt
 source/extracts
