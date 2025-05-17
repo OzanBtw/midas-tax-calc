@@ -1,0 +1,6 @@
+source/cache/
+source/api.txt
+note.txt
+source/extracts
+.DS_Store
+__pycache__/
