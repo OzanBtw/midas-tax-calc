@@ -1,5 +1,10 @@
 source/cache/
 source/api.txt
+source/tax_settings.json
+source/usd_data.csv
+source/year_data.json
+source/yi_ufe.csv
+
 note.txt
 source/extracts
 .DS_Store
