@@ -2,7 +2,7 @@
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/OzanBtw/midas-tax-calc)
 ![GitHub issues](https://img.shields.io/github/issues/OzanBtw/midas-tax-calc)
-![GitHub license](https://img.shields.io/github/license/OzanBtw/midas-tax-calc)
+![GitHub license](https://img.shields.io/github/license/OzanBtw/midas-tax-calc?style=flat)
 
 The main purpose of this project is to help users calculate their taxes based on transaction data from the **Midas** application.
 
