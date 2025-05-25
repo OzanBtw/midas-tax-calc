@@ -4,7 +4,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/OzanBtw/midas-tax-calc)
 ![GitHub license](https://img.shields.io/github/license/OzanBtw/midas-tax-calc?style=flat)
 
-The main purpose of this project is to help users calculate their taxes based on transaction data from the **Midas** application.
+A Python-based utility that helps users calculate their capital gains tax based on transaction data exported from the **Midas** investment app.
 
 ## Screenshots
 
@@ -12,13 +12,12 @@ The main purpose of this project is to help users calculate their taxes based on
 ![Screenshot 2](./source/screenshots/screen_2.png)
 
 
-
 ## Features
 
 - View income and tax summaries for a selected year
 - Display monthly graph of annual income and individual ticker performance
 - Monitor income from open (alive) orders
-- Fast and reliable performance
+- Fast and efficient performance
 
 ## Compatibility
 Tested on macOS Ventura. Support for other platforms will be added in the future.
@@ -27,7 +26,14 @@ Tested on macOS Ventura. Support for other platforms will be added in the future
 To install the project, run the following command in a terminal in your desired directory:
 
 ```bash
-git clone https://github.com/OzanBtw/midas-tax-calc
+git clone https://github.com/OzanBtw/midas-tax-calc.git
+cd midas-tax-calc
+pip install -r requirements.txt
+```
+
+To run the project,
+```bash
+python main.py
 ```
 
 To setup the project, you will need:
