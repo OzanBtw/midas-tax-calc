@@ -541,9 +541,9 @@ class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
+        self.title("Midas Tax Calculator")
         no_pdf(self)
 
-        self.title("Midas Tax Calculator")
         self.geometry("1000x700")
         self.minsize(1000, 700)
         

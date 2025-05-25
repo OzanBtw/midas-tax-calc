@@ -233,6 +233,8 @@ def month_data(df, cache_data, usd_df, yi_ufe_df, startdate, debug_ticker):
     return cache_data
 
 def renew_all(ticker="_none"):
+    if not os.path.isdir("source/cache"):
+        os.mkdir("source/cache")
     if os.path.isdir("source/cache/ticker_datas"):
         shutil.rmtree("source/cache/ticker_datas")
     
