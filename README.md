@@ -58,7 +58,7 @@ Midas Tax Calculator is licensed under the Apache License, Version 2.0, as found
 ## FAQ
 
 ### How does the app calculate tax?
-The app uses the **FIFO (First-In, First-Out)** method to match buy and sell orders and calculate capital gains.
+The app uses the **FIFO (First-In, First-Out)** method to match buy and sell orders and calculate capital gains. Fees from the transactions are included in the calculation.
 
 ### Does it include dividends or foreign income?
 No — the current version only calculates taxes based on capital gains from **stock transactions**.
