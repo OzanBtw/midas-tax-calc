@@ -155,6 +155,12 @@ class TaxWindowFrame(customtkinter.CTkScrollableFrame):
         super().__init__(master, **kwargs)
 
         tax_path = "source/tax_settings.json"
+
+        if not os.path.isfile(tax_path):
+            _data = {"Example": {"dividend": 0, "103": {"110000": 15, "230000": 20, "580000": 27, "3000000": 35, "0": 40}}}
+            with open(tax_path, 'w') as f:
+                json.dump(_data, f, indent=2)
+        
         with open(tax_path, 'r') as f:
             data = json.load(f)
             if master.master.current_year in data:
