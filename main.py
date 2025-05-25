@@ -83,8 +83,8 @@ class HelpWindow(customtkinter.CTkToplevel):
     • For each year, Article 103 must be reviewed, and the tax settings updated accordingly. 
     Transfer the data from the article into the application.
     
-    • The annual revenue of a ticker can be displayed as a graph by clicking on the ticker's name. 
-    Both the ticker and annual revenue graphs are presented in logarithmic scale.
+    • The annual income of a ticker can be displayed as a graph by clicking on the ticker's name. 
+    Both the ticker and annual income graphs are presented in logarithmic scale.
 
     • Regarding dividends: This application does not perform any calculations related to 
     dividends. Please use the Declaration System (Hazır Beyan Sistemi) to calculate the 
@@ -287,9 +287,9 @@ class RevenueGraphWindow(customtkinter.CTkToplevel):
 
         
         plt.xlabel("Months", color=text_color)
-        plt.ylabel("Revenue as ₺", color=text_color)
+        plt.ylabel("Income as ₺", color=text_color)
         plt.grid(True, color='#535559', linestyle='--')
-        plt.title(f"Year {self.master.current_year} Revenue Graph", color=text_color)
+        plt.title(f"Year {self.master.current_year} Income Graph", color=text_color)
         
         fig.patch.set_facecolor('#242424')   # Outside of plot area
         ax.set_facecolor('#2b2b2b')    
@@ -347,9 +347,9 @@ class TickerGraphWindow(customtkinter.CTkToplevel):
 
         
         plt.xlabel("Months", color=text_color)
-        plt.ylabel("Revenue as ₺", color=text_color)
+        plt.ylabel("Income as ₺", color=text_color)
         plt.grid(True, color='#535559', linestyle='--')
-        plt.title(f"Year {self.master.current_year} {ticker} Revenue Graph", color=text_color)
+        plt.title(f"Year {self.master.current_year} {ticker} Income Graph", color=text_color)
         
         fig.patch.set_facecolor('#242424')   # Outside of plot area
         ax.set_facecolor('#2b2b2b')    
@@ -508,7 +508,7 @@ class InsideFrame(customtkinter.CTkFrame):
         self.master = master
 
         self.title_var = StringVar()
-        self.title_var.set("Revenue of")
+        self.title_var.set("Income of")
         title_font = customtkinter.CTkFont(family="Helvetica", size=20, weight="bold")
         self.title = customtkinter.CTkLabel(self, textvariable=self.title_var, font=title_font)
         self.title.place(relx=0.5, rely=0.1, anchor=CENTER)
@@ -534,7 +534,7 @@ class InsideFrame(customtkinter.CTkFrame):
 
         revenue = "{:,.2f}".format(revenue)
         revenue_d = "{:,.2f}".format(revenue_d)
-        self.title_var.set(f"Revenue of {year}")
+        self.title_var.set(f"Income of {year}")
         self.price_var.set(f"{revenue} ₺\n{revenue_d} $")
 
 class App(customtkinter.CTk):
@@ -595,7 +595,7 @@ class App(customtkinter.CTk):
         tax_options_button = customtkinter.CTkButton(self, text="Tax Settings", width=12, command=self.tax_options_call)
         tax_options_button.grid(row=0, column=4, padx=(0, 10), pady=10)
 
-        graph_button = customtkinter.CTkButton(self, text="Revenue Graph", width=12, command=self.revenue_graph_window_call)
+        graph_button = customtkinter.CTkButton(self, text="Income Graph", width=12, command=self.revenue_graph_window_call)
         graph_button.grid(row=3, column=4, padx=(0, 10), pady=10)
         
         help_button = customtkinter.CTkButton(self, text="Help", width=12, command=self.help_call)
