@@ -54,21 +54,39 @@ Midas Tax Calculator is licensed under the Apache License, Version 2.0, as found
 
 ## FAQ
 
-### How does the app calculate tax?
+<details>
+<summary><strong>How does the app calculate tax?</strong></summary>
+
 The app uses the **FIFO (First-In, First-Out)** method to match buy and sell orders and calculate capital gains. Fees from the transactions are included in the calculation.
 
-### Does it include dividends or foreign income?
+</details>
+
+<details>
+<summary><strong>Does it include dividends or foreign income?</strong></summary> 
+
 No — the current version only calculates taxes based on capital gains from **stock transactions**.
 
+</details>
 
-### Is this tool affiliated with Midas?
+<details>
+<summary> <strong>Is this tool affiliated with Midas?</strong></summary>
+
 No. This is an **independent** open-source project. It is not affiliated with or endorsed by Midas.
 
+</details>
 
-### What happens if I forget to add an extract?
+<details>
+<summary><strong>What happens if I forget to add an extract?</strong></summary>
+
 Missing extracts can lead to:
-- Incomplete income calculations
+
+- Incomplete income calculations  
 - Crashes when resolving trades.
+
+</details>
+
+
+---
 
 > [!IMPORTANT]
 > The tax calculations provided by this tool are <mark>**for informational purposes only**</mark>. Users are solely responsible for any decisions or consequences that result from using this data for official tax filings.
