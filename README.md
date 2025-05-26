@@ -31,15 +31,15 @@ cd midas-tax-calc
 pip install -r requirements.txt
 ```
 
-To run the project,
+To run the project, run the following command in the same directory:
 ```bash
 python main.py
 ```
 
 To setup the project, you will need:
 
-- An **EVDS API key**. Visit the [EVDS website](https://evds2.tcmb.gov.tr/) and log in to generate your API key.
-- Monthly account extracts (in PDF) from the **Midas** app. Download all monthly extracts from the Midas app and place them in `source/extracts/pdf/` relative to the project root. 
+- An **EVDS API key**[^1].
+- Monthly account extracts (in PDF) from **Midas**[^2].
 
 After running the app for the first time, you will be prompted to enter and provide these.
 
@@ -87,6 +87,11 @@ Missing extracts can lead to:
 
 
 ---
+
+[^1]: To get the API key, visit the [EVDS website](https://evds2.tcmb.gov.tr/) and log in to generate your API key.
+
+[^2]: Download all monthly extracts from **Midas** and place them in `source/extracts/pdf/` relative to the project root. 
+
 
 > [!IMPORTANT]
 > The tax calculations provided by this tool are <mark>**for informational purposes only**</mark>. Users are solely responsible for any decisions or consequences that result from using this data for official tax filings.
