@@ -40,14 +40,11 @@ To setup the project, you will need:
 
 - An **EVDS API key**. Visit the [EVDS website](https://evds2.tcmb.gov.tr/) and log in to generate your API key.
 - Monthly account extracts (in PDF) from the **Midas** app. Download all monthly extracts from the Midas app and place them in `source/extracts/pdf/` relative to the project root. 
-> ⚠️ **Important:** All extracts must be included. Missing files may cause incorrect tax calculations or app crashes.
 
 After running the app for the first time, you will be prompted to enter and provide these.
 
-## Notes
-
-The tax calculations provided by this tool are **for informational purposes only**. Users are solely responsible for any decisions or consequences that result from using this data for official tax filings.
-
+> [!WARNING]
+> All extracts must be included. Missing files may cause incorrect tax calculations or app crashes.
 
 ## License
 
@@ -71,9 +68,7 @@ No. This is an **independent** open-source project. It is not affiliated with or
 ### What happens if I forget to add an extract?
 Missing extracts can lead to:
 - Incomplete income calculations
-- Crashes when resolving trades
+- Crashes when resolving trades.
 
-Always ensure you've added **all** monthly PDFs before running the app.
-
-
-
+> [!IMPORTANT]
+> The tax calculations provided by this tool are <mark>**for informational purposes only**</mark>. Users are solely responsible for any decisions or consequences that result from using this data for official tax filings.
