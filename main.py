@@ -579,7 +579,7 @@ class App(customtkinter.CTk):
         self.api_key = str(api_request())
         
         renew_usd_yi_ufe(self.api_key)
-        
+
         #renew_pdf(self.api_key)
         #renew_all()
         #self.load_data()

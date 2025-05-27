@@ -51,10 +51,13 @@ def get_d_price(text, usd_df):
 
     return b_price
 
-def get_yi_ufe_val(text, yi_ufe_df):
+def get_yi_ufe_val(text, yi_ufe_df, isThreeYear=False):
     c_month = int(text[3:5])
     c_year = int(text[6:])
     
+    if isThreeYear:
+        c_year -= 3
+
     c_month -= 1
     if c_month == 0:
         c_month = 12
@@ -78,10 +81,12 @@ def get_yi_ufe_val(text, yi_ufe_df):
 def calculate_inflation(b_date, s_date, yi_ufe_df):
     b_val = get_yi_ufe_val(b_date, yi_ufe_df)
     s_val = get_yi_ufe_val(s_date, yi_ufe_df)
+    s_val_three = get_yi_ufe_val(s_date, yi_ufe_df, True)
+    per_1 = (s_val / s_val_three) - 1
+    per_2 = (s_val / b_val) - 1
 
-    per = ((s_val - b_val) / b_val)
-    if per > 0.1:
-        return 1 + per
+    if per_1 > 1 and per_2 > 0.1:
+        return 1 + per_2
     else:
         return 1
      
