@@ -31,23 +31,20 @@ cd midas-tax-calc
 pip install -r requirements.txt
 ```
 
-To run the project,
+To run the project, run the following command in the same directory:
 ```bash
 python main.py
 ```
 
 To setup the project, you will need:
 
-- An **EVDS API key**. Visit the [EVDS website](https://evds2.tcmb.gov.tr/) and log in to generate your API key.
-- Monthly account extracts (in PDF) from the **Midas** app. Download all monthly extracts from the Midas app and place them in `source/extracts/pdf/` relative to the project root. 
-> ⚠️ **Important:** All extracts must be included. Missing files may cause incorrect tax calculations or app crashes.
+- An **EVDS API key**.[^1]
+- Monthly account extracts (in PDF) from **Midas**.[^2]
 
 After running the app for the first time, you will be prompted to enter and provide these.
 
-## Notes
-
-The tax calculations provided by this tool are **for informational purposes only**. Users are solely responsible for any decisions or consequences that result from using this data for official tax filings.
-
+> [!WARNING]
+> All extracts must be included. Missing files may cause incorrect tax calculations or app crashes.
 
 ## License
 
@@ -57,23 +54,44 @@ Midas Tax Calculator is licensed under the Apache License, Version 2.0, as found
 
 ## FAQ
 
-### How does the app calculate tax?
-The app uses the **FIFO (First-In, First-Out)** method to match buy and sell orders and calculate capital gains.
+<details>
+<summary><strong>How does the app calculate tax?</strong></summary>
 
-### Does it include dividends or foreign income?
+The app uses the **FIFO (First-In, First-Out)** method to match buy and sell orders and calculate capital gains. Fees from the transactions are included in the calculation. It also adjusts gains based on the inflation rate. For more details, please see Article 30 of the [GENERAL MANAGEMENT ACCOUNTING REGULATION](https://mevzuat.gov.tr/mevzuat?MevzuatNo=20147052&MevzuatTur=21&MevzuatTertip=5).
+
+</details>
+
+<details>
+<summary><strong>Does it include dividends or foreign income?</strong></summary> 
+
 No — the current version only calculates taxes based on capital gains from **stock transactions**.
 
+</details>
 
-### Is this tool affiliated with Midas?
+<details>
+<summary> <strong>Is this tool affiliated with Midas?</strong></summary>
+
 No. This is an **independent** open-source project. It is not affiliated with or endorsed by Midas.
 
+</details>
 
-### What happens if I forget to add an extract?
+<details>
+<summary><strong>What happens if I forget to add an extract?</strong></summary>
+
 Missing extracts can lead to:
-- Incomplete income calculations
-- Crashes when resolving trades
 
-Always ensure you've added **all** monthly PDFs before running the app.
+- Incomplete income calculations  
+- Crashes when resolving trades.
+
+</details>
 
 
+---
 
+[^1]: To get the API key, visit the [EVDS website](https://evds2.tcmb.gov.tr/) and log in to generate your API key.
+
+[^2]: Download all monthly extracts from **Midas** and place them in `source/extracts/pdf/` relative to the project root. 
+
+
+> [!IMPORTANT]
+> The tax calculations provided by this tool are <mark>**for informational purposes only**</mark>. Users are solely responsible for any decisions or consequences that result from using this data for official tax filings.

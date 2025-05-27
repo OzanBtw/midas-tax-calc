@@ -48,7 +48,7 @@ def renew_usd_yi_ufe(api_key):
     paths, startdate = get_paths()
     evds = evdsAPI(api_key)
 
-    startdate = "01-01-"+str(int(startdate[3:])-1)
+    startdate = "01-01-"+str(int(startdate[3:])-3)
     today = f"{date.today().day}-{date.today().month}-{date.today().year}"
 
     usd_data = evds.get_data(['TP.DK.USD.A.YTL'], startdate=startdate, enddate=today)
@@ -68,7 +68,7 @@ def renew_pdf(api_key):
     evds = evdsAPI(api_key)
 
 
-    startdate = "01-01-"+str(int(startdate[3:])-1)
+    startdate = "01-01-"+str(int(startdate[3:])-3)
     today = f"{date.today().day}-{date.today().month}-{date.today().year}"
 
     usd_data = evds.get_data(['TP.DK.USD.A.YTL'], startdate=startdate, enddate=today)
