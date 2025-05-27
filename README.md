@@ -38,8 +38,8 @@ python main.py
 
 To setup the project, you will need:
 
-- An **EVDS API key**[^1].
-- Monthly account extracts (in PDF) from **Midas**[^2].
+- An **EVDS API key**.[^1]
+- Monthly account extracts (in PDF) from **Midas**.[^2]
 
 After running the app for the first time, you will be prompted to enter and provide these.
 
@@ -57,7 +57,7 @@ Midas Tax Calculator is licensed under the Apache License, Version 2.0, as found
 <details>
 <summary><strong>How does the app calculate tax?</strong></summary>
 
-The app uses the **FIFO (First-In, First-Out)** method to match buy and sell orders and calculate capital gains. Fees from the transactions are included in the calculation.
+The app uses the **FIFO (First-In, First-Out)** method to match buy and sell orders and calculate capital gains. Fees from the transactions are included in the calculation. It also adjusts gains based on the inflation rate. For more details, please see Article 30 of the [GENERAL MANAGEMENT ACCOUNTING REGULATION](https://mevzuat.gov.tr/mevzuat?MevzuatNo=20147052&MevzuatTur=21&MevzuatTertip=5).
 
 </details>
 
