@@ -20,7 +20,7 @@ A Python-based utility that helps users calculate their capital gains tax based 
 - Fast and efficient performance
 
 ## Compatibility
-Tested on macOS Ventura. Support for other platforms will be added in the future.
+Tested on macOS Ventura and tested with limited coverage on Windows 11.
 
 ## Install & Setup
 To install the project, run the following command in a terminal in your desired directory:
