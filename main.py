@@ -34,7 +34,7 @@ class Loading_AnimationWindow(customtkinter.CTkToplevel):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         
-        progressbar = customtkinter.CTkProgressBar(
+        self.progressbar = customtkinter.CTkProgressBar(
             master=self,
             width=250,
             height=40,
@@ -42,8 +42,8 @@ class Loading_AnimationWindow(customtkinter.CTkToplevel):
             corner_radius=10,
             mode="indeterminate")
         
-        progressbar.grid(row=0, column=0)
-        progressbar.start()
+        self.progressbar.grid(row=0, column=0)
+        self.progressbar.start()
         self.attributes("-topmost", True)
 
 
@@ -66,6 +66,11 @@ class Loading_AnimationWindow(customtkinter.CTkToplevel):
 
 
         self.geometry(f"+{x}+{y}")
+
+
+    def close_bar(self):
+        self.progressbar.stop()
+        self.destroy()
 
 class HelpWindow(customtkinter.CTkToplevel):
     def __init__(self, master, **kwargs):
@@ -670,7 +675,7 @@ class App(customtkinter.CTk):
         renew_pdf(self.api_key)
         renew_all()
         self.load_data()
-        self.animation_window.destroy()
+        self.animation_window.close_bar()
         self.left_below_frame.renew.configure(state="normal")
 
     def renew_data(self):
@@ -680,7 +685,7 @@ class App(customtkinter.CTk):
 
     def start_load_thread(self):
         self.load_data()
-        self.animation_window.destroy()
+        self.animation_window.close_bar()
         self.left_below_frame.renew.configure(state="normal")
 
     def start_load_data(self):
