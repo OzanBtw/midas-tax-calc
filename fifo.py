@@ -47,7 +47,7 @@ def get_d_price(text, usd_df):
         c_year = text[6:]
         p_date = datetime(int(c_year), int(c_month), int(c_day)) - timedelta(days=1)
         text = f"{p_date.day:02d}-{p_date.month:02d}-{p_date.year}"
-        b_price = float(usd_df.loc[text == usd_df['Tarih']]['TP_DK_USD_A_YTL'])
+        b_price = float(usd_df.loc[text == usd_df['Tarih'], 'TP_DK_USD_A_YTL'].iloc[0])
 
     return b_price
 
@@ -66,7 +66,7 @@ def get_yi_ufe_val(text, yi_ufe_df, isThreeYear=False):
     text = f"{c_year}-{c_month}"
 
     try:
-        yi_ufe_val = float(yi_ufe_df.loc[text == yi_ufe_df['Tarih']]['TP_TUFE1YI_T1'])
+        yi_ufe_val = float(yi_ufe_df.loc[text == yi_ufe_df['Tarih'], 'TP_TUFE1YI_T1'].iloc[0])
 
     except:
         c_month -= 1
@@ -74,7 +74,8 @@ def get_yi_ufe_val(text, yi_ufe_df, isThreeYear=False):
             c_month = 12
             c_year -= 1 
         text = f"{c_year}-{c_month}"
-        yi_ufe_val = float(yi_ufe_df.loc[text == yi_ufe_df['Tarih']]['TP_TUFE1YI_T1'])
+        yi_ufe_val = float(yi_ufe_df.loc[text == yi_ufe_df['Tarih'], 'TP_TUFE1YI_T1'].iloc[0])
+
 
     return yi_ufe_val
 
