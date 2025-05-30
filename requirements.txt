@@ -2,7 +2,6 @@ matplotlib
 pandas
 requests
 yfinance
-tkinter
 customtkinter
 evds
 tabula-py

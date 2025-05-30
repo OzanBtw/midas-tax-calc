@@ -34,7 +34,7 @@ class Loading_AnimationWindow(customtkinter.CTkToplevel):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         
-        progressbar = customtkinter.CTkProgressBar(
+        self.progressbar = customtkinter.CTkProgressBar(
             master=self,
             width=250,
             height=40,
@@ -42,8 +42,8 @@ class Loading_AnimationWindow(customtkinter.CTkToplevel):
             corner_radius=10,
             mode="indeterminate")
         
-        progressbar.grid(row=0, column=0)
-        progressbar.start()
+        self.progressbar.grid(row=0, column=0)
+        self.progressbar.start()
         self.attributes("-topmost", True)
 
 
@@ -66,6 +66,11 @@ class Loading_AnimationWindow(customtkinter.CTkToplevel):
 
 
         self.geometry(f"+{x}+{y}")
+
+
+    def close_bar(self):
+        self.progressbar.stop()
+        self.destroy()
 
 class HelpWindow(customtkinter.CTkToplevel):
     def __init__(self, master, **kwargs):
@@ -498,9 +503,13 @@ class InsideBelowFrame(customtkinter.CTkScrollableFrame):
     def ticker_graph_window_call(self, year, ticker):
         if self.ticker_graph_window is None or not self.ticker_graph_window.winfo_exists():
             self.ticker_graph_window = TickerGraphWindow(self.master, year, ticker)  # create window if its None or destroyed
+            self.ticker_graph_window.after(100, lambda: self.ticker_graph_window.focus_force())
+            self.ticker_graph_window.lift()
         else:
             self.ticker_graph_window.destroy()
             self.ticker_graph_window = TickerGraphWindow(self.master, year, ticker)
+            self.ticker_graph_window.after(100, lambda: self.ticker_graph_window.focus_force())
+            self.ticker_graph_window.lift()
 
 class InsideFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -660,7 +669,7 @@ class App(customtkinter.CTk):
 
         with open('source/year_data.json', 'r') as f:
             self.year_data = json.load(f)
-        self.usd_df = pandas.read_csv('source/usd_data.csv')
+        self.usd_df = pandas.read_csv('source/usd_data.csv', encoding="utf-8")
         
 
         self.left_frame.reload_buttons(self)
@@ -670,7 +679,7 @@ class App(customtkinter.CTk):
         renew_pdf(self.api_key)
         renew_all()
         self.load_data()
-        self.animation_window.destroy()
+        self.animation_window.close_bar()
         self.left_below_frame.renew.configure(state="normal")
 
     def renew_data(self):
@@ -680,7 +689,7 @@ class App(customtkinter.CTk):
 
     def start_load_thread(self):
         self.load_data()
-        self.animation_window.destroy()
+        self.animation_window.close_bar()
         self.left_below_frame.renew.configure(state="normal")
 
     def start_load_data(self):
@@ -691,22 +700,31 @@ class App(customtkinter.CTk):
     def tax_options_call(self):
         if self.tax_window is None or not self.tax_window.winfo_exists():
             self.tax_window = TaxWindow(self)  # create window if its None or destroyed
+            self.tax_window.after(100, lambda: self.tax_window.focus_force())
+            self.tax_window.lift()
         else:
-            self.tax_window.focus()
+            self.tax_window.after(100, lambda: self.tax_window.focus_force())
+            self.tax_window.lift()
 
     def revenue_graph_window_call(self):
         if self.revenue_graph_window is None or not self.revenue_graph_window.winfo_exists():
             self.revenue_graph_window = RevenueGraphWindow(self)  # create window if its None or destroyed
+            self.revenue_graph_window.after(100, lambda: self.revenue_graph_window.focus_force())
+            self.revenue_graph_window.lift()
         else:
-            self.revenue_graph_window.focus()
+            self.revenue_graph_window.after(100, lambda: self.revenue_graph_window.focus_force())
+            self.revenue_graph_window.lift()
 
 
 
     def help_call(self):
         if self.help_window is None or not self.help_window.winfo_exists():
             self.help_window = HelpWindow(self)  # create window if its None or destroyed
+            self.help_window.after(100, lambda: self.help_window.focus_force())
+            self.help_window.lift()
         else:
-            self.help_window.focus()
+            self.help_window.after(100, lambda: self.help_window.focus_force())
+            self.help_window.lift()
 
     def show_year(self, year):
         date = datetime.datetime.today()

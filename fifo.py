@@ -18,7 +18,7 @@ def get_ticker_df(ticker, date):
     path = f"source/cache/ticker_datas/{ticker.upper()}.csv"
 
     if os.path.isfile(path):
-        _df = pandas.read_csv(path,  header=[0, 1], index_col=0)
+        _df = pandas.read_csv(path,  header=[0, 1], index_col=0, encoding="utf-8")
         _df.columns = _df.columns.droplevel(1)
 
         return _df
@@ -28,7 +28,7 @@ def get_ticker_df(ticker, date):
         time.sleep(1)
         _df.to_csv(path)
 
-        _df = pandas.read_csv(path,  header=[0, 1], index_col=0)
+        _df = pandas.read_csv(path,  header=[0, 1], index_col=0, encoding="utf-8")
         _df.columns = _df.columns.droplevel(1)
 
 
@@ -39,7 +39,7 @@ def get_ticker_df(ticker, date):
 
 
 def get_d_price(text, usd_df):
-    b_price = float(usd_df.loc[text == usd_df['Tarih']]['TP_DK_USD_A_YTL'])
+    b_price = float(usd_df.loc[text == usd_df['Tarih'], 'TP_DK_USD_A_YTL'].iloc[0])
 
     while b_price == 0 or math.isnan(b_price):
         c_day = text[:2]
@@ -47,7 +47,7 @@ def get_d_price(text, usd_df):
         c_year = text[6:]
         p_date = datetime(int(c_year), int(c_month), int(c_day)) - timedelta(days=1)
         text = f"{p_date.day:02d}-{p_date.month:02d}-{p_date.year}"
-        b_price = float(usd_df.loc[text == usd_df['Tarih']]['TP_DK_USD_A_YTL'])
+        b_price = float(usd_df.loc[text == usd_df['Tarih'], 'TP_DK_USD_A_YTL'].iloc[0])
 
     return b_price
 
@@ -66,7 +66,7 @@ def get_yi_ufe_val(text, yi_ufe_df, isThreeYear=False):
     text = f"{c_year}-{c_month}"
 
     try:
-        yi_ufe_val = float(yi_ufe_df.loc[text == yi_ufe_df['Tarih']]['TP_TUFE1YI_T1'])
+        yi_ufe_val = float(yi_ufe_df.loc[text == yi_ufe_df['Tarih'], 'TP_TUFE1YI_T1'].iloc[0])
 
     except:
         c_month -= 1
@@ -74,7 +74,8 @@ def get_yi_ufe_val(text, yi_ufe_df, isThreeYear=False):
             c_month = 12
             c_year -= 1 
         text = f"{c_year}-{c_month}"
-        yi_ufe_val = float(yi_ufe_df.loc[text == yi_ufe_df['Tarih']]['TP_TUFE1YI_T1'])
+        yi_ufe_val = float(yi_ufe_df.loc[text == yi_ufe_df['Tarih'], 'TP_TUFE1YI_T1'].iloc[0])
+
 
     return yi_ufe_val
 
@@ -245,8 +246,6 @@ def renew_all(ticker="_none"):
     
     os.mkdir("source/cache/ticker_datas")
 
-
-
     split_path = "source/cache/splits.json"
 
     if not os.path.isdir("source/cache"):
@@ -256,10 +255,11 @@ def renew_all(ticker="_none"):
     with open(split_path, "w") as f:
         json.dump(split_data, f, indent=2)
 
-    usd_df = pandas.read_csv('source/usd_data.csv')
-    usd_df['TP_DK_USD_A_YTL'].fillna(0.0,inplace=True)
+    usd_df = pandas.read_csv('source/usd_data.csv', encoding="utf-8")
+    usd_df['TP_DK_USD_A_YTL'] = usd_df['TP_DK_USD_A_YTL'].fillna(0.0)
 
-    yi_ufe_df = pandas.read_csv('source/yi_ufe.csv')
+
+    yi_ufe_df = pandas.read_csv('source/yi_ufe.csv', encoding="utf-8")
 
     paths, startdate = get_paths()
     startdate = f"01-{startdate.replace('_', '-')}"
@@ -282,7 +282,7 @@ def renew_all(ticker="_none"):
                 flag = False
             if os.path.isfile(path):
 
-                df = pandas.read_csv(path)
+                df = pandas.read_csv(path, encoding="utf-8")
                 cache_data = month_data(df, cache_data, usd_df, yi_ufe_df ,startdate, ticker)
                 month_master.append(copy.deepcopy(cache_data))
             else:
@@ -342,11 +342,10 @@ def renew_all(ticker="_none"):
 
 
 
-
     cache_path = f"source/year_data.json"
     with open(cache_path, 'w') as f:
         json.dump(main_data, f, indent=3)
 
 
 if __name__ == "__main__":
-    renew_all("BABA")
+    renew_all("MRT")

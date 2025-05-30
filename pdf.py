@@ -12,7 +12,7 @@ def get_orders(path):
     while True:
         i += 1
         try:
-            df = read_pdf(path,pages=i)
+            df = read_pdf(path,pages=i, lattice=True)
         except:
             break
 
@@ -33,14 +33,15 @@ def create_master_table():
     prefix_path = 'source/extracts/tables/'
     paths, startdate = get_paths()
 
-    df_master = pd.read_csv(prefix_path+paths[0]+".csv")
+    df_master = pd.read_csv(prefix_path+paths[0]+".csv", encoding="utf-8")
     paths.pop(0)
     
     for p in paths:
-        df = pd.read_csv(prefix_path+p+".csv")
+        df = pd.read_csv(prefix_path+p+".csv", encoding="utf-8")
         df_master = pd.concat([df_master, df], ignore_index=True)
 
-    df_master = df_master.drop(columns=['Unnamed: 0', 'Empty'])
+    df_master = df_master.drop(columns=['Unnamed: 0'], errors='ignore')
+    df_master = df_master.drop(columns=['Empty'], errors='ignore')
     df_master.to_csv(prefix_path+"Master_Ekstre.csv")
 
 
