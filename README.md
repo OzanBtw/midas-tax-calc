@@ -36,6 +36,13 @@ To run the project, run the following command in the same directory:
 python main.py
 ```
 
+> [!IMPORTANT]
+> This project requires Java (OpenJDK 17 or later).  
+> Make sure `java` and `javac` are available in your system PATH.  
+> If you're using OpenJDK, you may need to manually set the `JAVA_HOME` environment variable
+> On macOS, this often works out-of-the-box; on Windows or Linux, you may need to configure it manually.
+
+
 To setup the project, you will need:
 
 - An **EVDS API key**.[^1]
