@@ -665,7 +665,7 @@ class App(customtkinter.CTk):
 
         with open('source/year_data.json', 'r') as f:
             self.year_data = json.load(f)
-        self.usd_df = pandas.read_csv('source/usd_data.csv')
+        self.usd_df = pandas.read_csv('source/usd_data.csv', encoding="utf-8")
         
 
         self.left_frame.reload_buttons(self)

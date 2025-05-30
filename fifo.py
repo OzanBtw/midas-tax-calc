@@ -18,7 +18,7 @@ def get_ticker_df(ticker, date):
     path = f"source/cache/ticker_datas/{ticker.upper()}.csv"
 
     if os.path.isfile(path):
-        _df = pandas.read_csv(path,  header=[0, 1], index_col=0)
+        _df = pandas.read_csv(path,  header=[0, 1], index_col=0, encoding="utf-8")
         _df.columns = _df.columns.droplevel(1)
 
         return _df
@@ -28,7 +28,7 @@ def get_ticker_df(ticker, date):
         time.sleep(1)
         _df.to_csv(path)
 
-        _df = pandas.read_csv(path,  header=[0, 1], index_col=0)
+        _df = pandas.read_csv(path,  header=[0, 1], index_col=0, encoding="utf-8")
         _df.columns = _df.columns.droplevel(1)
 
 
@@ -245,8 +245,6 @@ def renew_all(ticker="_none"):
     
     os.mkdir("source/cache/ticker_datas")
 
-
-
     split_path = "source/cache/splits.json"
 
     if not os.path.isdir("source/cache"):
@@ -256,11 +254,11 @@ def renew_all(ticker="_none"):
     with open(split_path, "w") as f:
         json.dump(split_data, f, indent=2)
 
-    usd_df = pandas.read_csv('source/usd_data.csv')
+    usd_df = pandas.read_csv('source/usd_data.csv', encoding="utf-8")
     usd_df['TP_DK_USD_A_YTL'] = usd_df['TP_DK_USD_A_YTL'].fillna(0.0)
 
 
-    yi_ufe_df = pandas.read_csv('source/yi_ufe.csv')
+    yi_ufe_df = pandas.read_csv('source/yi_ufe.csv', encoding="utf-8")
 
     paths, startdate = get_paths()
     startdate = f"01-{startdate.replace('_', '-')}"
@@ -283,7 +281,7 @@ def renew_all(ticker="_none"):
                 flag = False
             if os.path.isfile(path):
 
-                df = pandas.read_csv(path)
+                df = pandas.read_csv(path, encoding="utf-8")
                 cache_data = month_data(df, cache_data, usd_df, yi_ufe_df ,startdate, ticker)
                 month_master.append(copy.deepcopy(cache_data))
             else:
