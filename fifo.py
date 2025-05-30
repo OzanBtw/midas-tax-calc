@@ -349,4 +349,4 @@ def renew_all(ticker="_none"):
 
 
 if __name__ == "__main__":
-    renew_all("BABA")
+    renew_all("MRT")
