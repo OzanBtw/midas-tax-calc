@@ -257,7 +257,8 @@ def renew_all(ticker="_none"):
         json.dump(split_data, f, indent=2)
 
     usd_df = pandas.read_csv('source/usd_data.csv')
-    usd_df['TP_DK_USD_A_YTL'].fillna(0.0,inplace=True)
+    usd_df['TP_DK_USD_A_YTL'] = usd_df['TP_DK_USD_A_YTL'].fillna(0.0)
+
 
     yi_ufe_df = pandas.read_csv('source/yi_ufe.csv')
 
