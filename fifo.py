@@ -39,7 +39,7 @@ def get_ticker_df(ticker, date):
 
 
 def get_d_price(text, usd_df):
-    b_price = float(usd_df.loc[text == usd_df['Tarih']]['TP_DK_USD_A_YTL'])
+    b_price = float(usd_df.loc[text == usd_df['Tarih'], 'TP_DK_USD_A_YTL'].iloc[0])
 
     while b_price == 0 or math.isnan(b_price):
         c_day = text[:2]
@@ -339,7 +339,6 @@ def renew_all(ticker="_none"):
         last_data[t]['total_value'] = calculate_total_spending_value(last_data[t], day_1, yi_ufe_df, usd_df, isSold=False)
 
         #print(f"\t{t}: {c_val}, {last_data[t]['total_value']}")
-
 
 
 
