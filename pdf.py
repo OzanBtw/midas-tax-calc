@@ -11,9 +11,10 @@ def get_orders(path):
     orders = []
     while True:
         i += 1
-        
-        df = read_pdf(path,pages=i, lattice=True)
-
+        try:
+            df = read_pdf(path,pages=i, lattice=True)
+        except:
+            break
 
         for t in df:
             if "YATIRIM İŞLEMLERİ" in t.columns[0]:
