@@ -40,7 +40,8 @@ def create_master_table():
         df = pd.read_csv(prefix_path+p+".csv")
         df_master = pd.concat([df_master, df], ignore_index=True)
 
-    df_master = df_master.drop(columns=['Unnamed: 0', 'Empty'])
+    df_master = df_master.drop(columns=['Unnamed: 0'], errors='ignore')
+    df_master = df_master.drop(columns=['Empty'], errors='ignore')
     df_master.to_csv(prefix_path+"Master_Ekstre.csv")
 
 
