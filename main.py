@@ -503,12 +503,12 @@ class InsideBelowFrame(customtkinter.CTkScrollableFrame):
     def ticker_graph_window_call(self, year, ticker):
         if self.ticker_graph_window is None or not self.ticker_graph_window.winfo_exists():
             self.ticker_graph_window = TickerGraphWindow(self.master, year, ticker)  # create window if its None or destroyed
-            self.ticker_graph_window.focus_force()
+            self.ticker_graph_window.after(100, lambda: self.ticker_graph_window.focus_force())
             self.ticker_graph_window.lift()
         else:
             self.ticker_graph_window.destroy()
             self.ticker_graph_window = TickerGraphWindow(self.master, year, ticker)
-            self.ticker_graph_window.focus_force()
+            self.ticker_graph_window.after(100, lambda: self.ticker_graph_window.focus_force())
             self.ticker_graph_window.lift()
 
 class InsideFrame(customtkinter.CTkFrame):
@@ -700,19 +700,19 @@ class App(customtkinter.CTk):
     def tax_options_call(self):
         if self.tax_window is None or not self.tax_window.winfo_exists():
             self.tax_window = TaxWindow(self)  # create window if its None or destroyed
-            self.tax_window.focus_force()
+            self.tax_window.after(100, lambda: self.tax_window.focus_force())
             self.tax_window.lift()
         else:
-            self.tax_window.focus_force()
+            self.tax_window.after(100, lambda: self.tax_window.focus_force())
             self.tax_window.lift()
 
     def revenue_graph_window_call(self):
         if self.revenue_graph_window is None or not self.revenue_graph_window.winfo_exists():
             self.revenue_graph_window = RevenueGraphWindow(self)  # create window if its None or destroyed
-            self.revenue_graph_window.focus_force()
+            self.revenue_graph_window.after(100, lambda: self.revenue_graph_window.focus_force())
             self.revenue_graph_window.lift()
         else:
-            self.revenue_graph_window.focus_force()
+            self.revenue_graph_window.after(100, lambda: self.revenue_graph_window.focus_force())
             self.revenue_graph_window.lift()
 
 
@@ -720,10 +720,10 @@ class App(customtkinter.CTk):
     def help_call(self):
         if self.help_window is None or not self.help_window.winfo_exists():
             self.help_window = HelpWindow(self)  # create window if its None or destroyed
-            self.help_window.focus_force()
+            self.help_window.after(100, lambda: self.help_window.focus_force())
             self.help_window.lift()
         else:
-            self.help_window.focus_force()
+            self.help_window.after(100, lambda: self.help_window.focus_force())
             self.help_window.lift()
 
     def show_year(self, year):
