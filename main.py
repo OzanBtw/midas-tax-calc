@@ -503,9 +503,11 @@ class InsideBelowFrame(customtkinter.CTkScrollableFrame):
     def ticker_graph_window_call(self, year, ticker):
         if self.ticker_graph_window is None or not self.ticker_graph_window.winfo_exists():
             self.ticker_graph_window = TickerGraphWindow(self.master, year, ticker)  # create window if its None or destroyed
+            self.ticker_graph_window.focus()
         else:
             self.ticker_graph_window.destroy()
             self.ticker_graph_window = TickerGraphWindow(self.master, year, ticker)
+            self.ticker_graph_window.focus()
 
 class InsideFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -696,12 +698,14 @@ class App(customtkinter.CTk):
     def tax_options_call(self):
         if self.tax_window is None or not self.tax_window.winfo_exists():
             self.tax_window = TaxWindow(self)  # create window if its None or destroyed
+            self.tax_window.focus()
         else:
             self.tax_window.focus()
 
     def revenue_graph_window_call(self):
         if self.revenue_graph_window is None or not self.revenue_graph_window.winfo_exists():
             self.revenue_graph_window = RevenueGraphWindow(self)  # create window if its None or destroyed
+            self.revenue_graph_window.focus()
         else:
             self.revenue_graph_window.focus()
 
@@ -710,6 +714,7 @@ class App(customtkinter.CTk):
     def help_call(self):
         if self.help_window is None or not self.help_window.winfo_exists():
             self.help_window = HelpWindow(self)  # create window if its None or destroyed
+            self.help_window.focus()
         else:
             self.help_window.focus()
 
