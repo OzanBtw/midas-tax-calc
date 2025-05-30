@@ -503,11 +503,11 @@ class InsideBelowFrame(customtkinter.CTkScrollableFrame):
     def ticker_graph_window_call(self, year, ticker):
         if self.ticker_graph_window is None or not self.ticker_graph_window.winfo_exists():
             self.ticker_graph_window = TickerGraphWindow(self.master, year, ticker)  # create window if its None or destroyed
-            self.ticker_graph_window.focus()
+            self.ticker_graph_window.focus_force()
         else:
             self.ticker_graph_window.destroy()
             self.ticker_graph_window = TickerGraphWindow(self.master, year, ticker)
-            self.ticker_graph_window.focus()
+            self.ticker_graph_window.focus_force()
 
 class InsideFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -698,25 +698,25 @@ class App(customtkinter.CTk):
     def tax_options_call(self):
         if self.tax_window is None or not self.tax_window.winfo_exists():
             self.tax_window = TaxWindow(self)  # create window if its None or destroyed
-            self.tax_window.focus()
+            self.tax_window.focus_force()
         else:
-            self.tax_window.focus()
+            self.tax_window.focus_force()
 
     def revenue_graph_window_call(self):
         if self.revenue_graph_window is None or not self.revenue_graph_window.winfo_exists():
             self.revenue_graph_window = RevenueGraphWindow(self)  # create window if its None or destroyed
-            self.revenue_graph_window.focus()
+            self.revenue_graph_window.focus_force()
         else:
-            self.revenue_graph_window.focus()
+            self.revenue_graph_window.focus_force()
 
 
 
     def help_call(self):
         if self.help_window is None or not self.help_window.winfo_exists():
             self.help_window = HelpWindow(self)  # create window if its None or destroyed
-            self.help_window.focus()
+            self.help_window.focus_force()
         else:
-            self.help_window.focus()
+            self.help_window.focus_force()
 
     def show_year(self, year):
         date = datetime.datetime.today()
