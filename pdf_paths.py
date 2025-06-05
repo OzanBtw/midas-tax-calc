@@ -82,12 +82,16 @@ def get_paths():
     master.sort(key=_sortDates)
 
     start = master[0]
+    end = master[-1]
     master = list(map(_get_month, master))
 
     master2 = []
     for l in master:
         l = f"Midas_Ekstre_{l}"
         master2.append(l)
-    return master2, start
+    return master2, start, end
 
+
+if __name__ == "__main__":
+    print(get_paths())
 

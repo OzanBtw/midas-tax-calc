@@ -31,7 +31,7 @@ def get_orders(path):
 
 def create_master_table():
     prefix_path = 'source/extracts/tables/'
-    paths, startdate = get_paths()
+    paths, startdate, enddate = get_paths()
 
     df_master = pd.read_csv(prefix_path+paths[0]+".csv", encoding="utf-8")
     paths.pop(0)
@@ -46,7 +46,7 @@ def create_master_table():
 
 
 def renew_usd_yi_ufe(api_key):
-    paths, startdate = get_paths()
+    paths, startdate, enddate = get_paths()
     evds = evdsAPI(api_key)
 
     startdate = "01-01-"+str(int(startdate[3:])-3)
@@ -64,7 +64,7 @@ def renew_usd_yi_ufe(api_key):
     
 def renew_pdf(api_key):
     #Getting Datas
-    paths, startdate = get_paths()
+    paths, startdate, enddate = get_paths()
 
     evds = evdsAPI(api_key)
 

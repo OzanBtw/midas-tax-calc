@@ -14,6 +14,17 @@ import shutil
 
 pandas.options.mode.chained_assignment = None
 
+def get_first_price_of_month_ticker(df, _datetime):
+    while True:
+        date = f"{_datetime.year}-{_datetime.month:02}-{_datetime.day:02}"
+        try:
+            row = df.loc[date]
+            break
+        except:
+            _datetime = _datetime - timedelta(days=1)
+    
+    return row['Close']
+
 def get_ticker_df(ticker, date):
     path = f"source/cache/ticker_datas/{ticker.upper()}.csv"
 
@@ -261,11 +272,11 @@ def renew_all(ticker="_none"):
 
     yi_ufe_df = pandas.read_csv('source/yi_ufe.csv', encoding="utf-8")
 
-    paths, startdate = get_paths()
+    paths, startdate, enddate = get_paths()
     startdate = f"01-{startdate.replace('_', '-')}"
     #startdate = '01-08-2023'
     start_year = int(startdate[-4:])
-    end_year = date.today().year
+    end_year = int(enddate[-4:])
 
 
     months = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
@@ -315,19 +326,18 @@ def renew_all(ticker="_none"):
     last_data = main_data[end_year]['months'][-1]
 
     #print("Active orders:")
+    _year = int(enddate[3:])
+    _month = int(enddate[:2])
     for t in last_data.keys():
-        day_1 = f"{1:02}-{date.today().month:02}-{date.today().year}"
+        day_1 = f"{1:02}-{_month:02}-{_year}"
         b_price = get_d_price(day_1, usd_df)
         c_val = 0.0
 
         if len(last_data[t]['amount']) > 0:  #actually active?
             _df = get_ticker_df(t, day_1)
-            _date = f"{date.today().year}-{date.today().month:02}-{1:02}"
+            _datetime = datetime(_year, _month, 1)
 
-            row = _df.loc[_date]
-
-            current_price = row['Close']
-
+            current_price = get_first_price_of_month_ticker(_df, _datetime)
     
         else: 
             current_price = 0
